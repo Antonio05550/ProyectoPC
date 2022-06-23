@@ -49,7 +49,7 @@
         android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toTopOf="@+id/imageView3"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_dashboard_black_24dp" />
+        app:srcCompat="@drawable/caminar" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -59,7 +59,7 @@
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:srcCompat="@drawable/ic_dashboard_black_24dp" />
+        app:srcCompat="@drawable/res" />
 
     <TextView
         android:id="@+id/textView7"
