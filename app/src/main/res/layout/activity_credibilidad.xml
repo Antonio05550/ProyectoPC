@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Credibilidad">
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical">
+  <TextView
+      android:id="@+id/text_view_id"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="¿Sabías qué?"
+      android:gravity="center"
+      android:textSize="40dp"/>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:layout_margin="10dp"
+      android:background="@drawable/border">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#03A9F4"
+        android:gravity="center"
+        android:text="OMS: Cáncer por uso del celular"
+        android:textColor="#FFF"
+        android:textSize="20dp">
+      </TextView>
+    <TextView
+        android:id="@+id/sabias1T"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="La Organización Mundial de la Salud (OMS) menciona que ciertos campos de radiofrecuencia electromagnética como posiblemente cancerígenas para los humanos."
+        android:textSize="10dp"
+        android:layout_marginTop="10dp">
+    </TextView>
+    <TextView
+        android:id="@+id/sabias1V"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="https://www.infosalus.com/actualidad/noticia-oms-dice-uso-telefonos-moviles-posiblemente-cancerigeno-20110601104602.html"
+        android:textSize="5dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp">
+    </TextView>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/sabias1I"
+        android:src="@drawable/oms"
+        android:layout_marginBottom="5dp"/>
+
+   </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:background="@drawable/border">
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:background="#03A9F4"
+          android:gravity="center"
+          android:text="El comercio: ¿Por qué tú te sientes mal contigo?"
+          android:textColor="#FFF"
+          android:textSize="20dp">
+      </TextView>
+      <TextView
+          android:id="@+id/sabias2T"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="center"
+          android:text="El uso de las redes sociales esta asociado a preocupaciones con la imagen corporal y desórdenes alimenticios. "
+          android:textSize="10dp"
+          android:layout_marginTop="10dp">
+      </TextView>
+      <TextView
+          android:id="@+id/sabias2V"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="center"
+          android:text="https://www.elcomercio.com/tendencias/salud/celulares-redes-sociales-problemas-mentales.html"
+          android:textSize="5dp"
+          android:textAppearance="@style/TextAppearance.AppCompat.Small"
+          android:textStyle="bold"
+          android:layout_marginTop="10dp">
+      </TextView>
+      <ImageView
+          android:layout_width="match_parent"
+          android:layout_height="100dp"
+          android:id="@+id/sabias2I"
+          android:src="@drawable/cuerpo"
+          android:layout_marginBottom="5dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:background="@drawable/border">
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:background="#03A9F4"
+          android:gravity="center"
+          android:text="UniPiloto: Sobrepeso"
+          android:textColor="#FFF"
+          android:textSize="20dp">
+      </TextView>
+      <TextView
+          android:id="@+id/sabias3T"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="center"
+          android:text="La OMS afirma que durante los últimos años aumentaron los casos de obesidad en niños y adolescentes, directamente relacionado con la falta de actividad física por el uso del celular. Se determinó que un tercio de los adolescentes entre 13 y 15 años de edad presentaban problemas de sobrepeso, y, por tanto, el riesgo cardiovascular."
+          android:textSize="10dp"
+          android:layout_marginTop="10dp">
+      </TextView>
+      <TextView
+          android:id="@+id/sabias3V"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="center"
+          android:text="https://www.unipiloto.edu.co/enfermedades-causadas-por-el-uso-excesivo-del-celular/"
+          android:textSize="5dp"
+          android:textAppearance="@style/TextAppearance.AppCompat.Small"
+          android:textStyle="bold"
+          android:layout_marginTop="10dp">
+      </TextView>
+      <ImageView
+          android:layout_width="match_parent"
+          android:layout_height="100dp"
+          android:id="@+id/sabias3I"
+          android:src="@drawable/sobrepeso"
+          android:layout_marginBottom="5dp"/>
+
+    </LinearLayout>
+  </LinearLayout>
+</ScrollView>
