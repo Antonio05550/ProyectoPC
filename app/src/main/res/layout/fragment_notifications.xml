@@ -82,10 +82,28 @@
                 android:layout_height="100dp"
                 android:background="#03A9F4"
                 android:gravity="center"
-                android:text="Recoge tus recompensas"
+                android:text="Racha de metas"
                 android:textColor="#FFF"
-                android:textSize="20dp">
-            </TextView>
+                android:textSize="20dp"></TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:background="@drawable/border"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/baviso"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="#03A9F4"
+                android:gravity="center"
+                android:text="Avisos"
+                android:textColor="#FFF"
+                android:textSize="20dp"></TextView>
 
         </LinearLayout>
 

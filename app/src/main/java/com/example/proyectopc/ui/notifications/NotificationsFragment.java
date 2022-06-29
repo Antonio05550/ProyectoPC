@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.proyectopc.Credibilidad;
 import com.example.proyectopc.MainActivity;
+import com.example.proyectopc.MainActivity3;
 import com.example.proyectopc.MainActivity4;
 import com.example.proyectopc.R;
 import com.example.proyectopc.Recompensas;
@@ -63,11 +64,21 @@ public class NotificationsFragment extends Fragment {
             }
         });
 
-        TextView info4 = root.findViewById(R.id.brecompesa);
+        TextView info4 = root.findViewById(R.id.bmetas);
         info4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (v.getContext(), MainActivity4.class);
+                startActivityForResult(intent, 0);
+
+            }
+        });
+
+        TextView info5 = root.findViewById(R.id.baviso);
+        info5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (v.getContext(), MainActivity3.class);
                 startActivityForResult(intent, 0);
 
             }

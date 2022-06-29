@@ -30,10 +30,17 @@
         <activity
             android:name=".inicio"
             android:exported="true"
-            android:label="Condiciones de uso" />
+            android:label="Condiciones de uso" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".MainActivity4"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Metas" />
         <activity
             android:name=".MainActivity3"
             android:exported="false" />
@@ -45,13 +52,8 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:label="@string/app_name" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
