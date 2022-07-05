@@ -40,20 +40,10 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="La Organización Mundial de la Salud (OMS) menciona que ciertos campos de radiofrecuencia electromagnética como posiblemente cancerígenas para los humanos."
-        android:textSize="10dp"
-        android:layout_marginTop="10dp">
+        android:textSize="14dp"
+        android:layout_marginTop="20dp">
     </TextView>
-    <TextView
-        android:id="@+id/sabias1V"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="https://www.infosalus.com/actualidad/noticia-oms-dice-uso-telefonos-moviles-posiblemente-cancerigeno-20110601104602.html"
-        android:textSize="5dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textStyle="bold"
-        android:layout_marginTop="10dp">
-    </TextView>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -84,20 +74,10 @@
           android:layout_height="match_parent"
           android:gravity="center"
           android:text="El uso de las redes sociales esta asociado a preocupaciones con la imagen corporal y desórdenes alimenticios. "
-          android:textSize="10dp"
+          android:textSize="14dp"
           android:layout_marginTop="10dp">
       </TextView>
-      <TextView
-          android:id="@+id/sabias2V"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:gravity="center"
-          android:text="https://www.elcomercio.com/tendencias/salud/celulares-redes-sociales-problemas-mentales.html"
-          android:textSize="5dp"
-          android:textAppearance="@style/TextAppearance.AppCompat.Small"
-          android:textStyle="bold"
-          android:layout_marginTop="10dp">
-      </TextView>
+
       <ImageView
           android:layout_width="match_parent"
           android:layout_height="100dp"
@@ -128,20 +108,10 @@
           android:layout_height="match_parent"
           android:gravity="center"
           android:text="La OMS afirma que durante los últimos años aumentaron los casos de obesidad en niños y adolescentes, directamente relacionado con la falta de actividad física por el uso del celular. Se determinó que un tercio de los adolescentes entre 13 y 15 años de edad presentaban problemas de sobrepeso, y, por tanto, el riesgo cardiovascular."
-          android:textSize="10dp"
+          android:textSize="14dp"
           android:layout_marginTop="10dp">
       </TextView>
-      <TextView
-          android:id="@+id/sabias3V"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:gravity="center"
-          android:text="https://www.unipiloto.edu.co/enfermedades-causadas-por-el-uso-excesivo-del-celular/"
-          android:textSize="5dp"
-          android:textAppearance="@style/TextAppearance.AppCompat.Small"
-          android:textStyle="bold"
-          android:layout_marginTop="10dp">
-      </TextView>
+
       <ImageView
           android:layout_width="match_parent"
           android:layout_height="100dp"
