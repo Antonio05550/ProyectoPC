@@ -1,7 +1,6 @@
-package com.example.proyectopc.ui.home;
+package com.example.proyectopc;
 
-import static android.app.AppOpsManager.MODE_ALLOWED;
-import static android.app.AppOpsManager.OPSTR_GET_USAGE_STATS;
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AppOpsManager;
 import android.app.usage.UsageStats;
@@ -11,91 +10,67 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.net.IpSecManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.proyectopc.App;
-import com.example.proyectopc.AppsAdapter;
-import com.example.proyectopc.AppsUsage;
-import com.example.proyectopc.R;
-import com.example.proyectopc.databinding.FragmentHomeBinding;
-import com.github.mikephil.charting.charts.BarChart;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-/**
- * Fragment that demonstrates how to use App Usage Statistics API.
- */
-public class HomeFragment extends Fragment {
+import static android.app.AppOpsManager.MODE_ALLOWED;
+import static android.app.AppOpsManager.OPSTR_GET_USAGE_STATS;
 
-    private FragmentHomeBinding binding;
-
-    RecyclerView recyclerView, recyclerView2;
-
-    // Using ArrayList to store images data
-    ArrayList img = new ArrayList<>(Arrays.asList(R.drawable.icon1, R.drawable.icon2,
-            R.drawable.icon3, R.drawable.icon4));
-    ArrayList nombre = new ArrayList<>(Arrays.asList("TikTok", "Facebook", "Messenger", "WhatsApp"));
-    ArrayList tiempo = new ArrayList<>(Arrays.asList("50 m", "45 m", "30 m", "20 m"));
+public class AppsUsage extends AppCompatActivity {
 
     Button enableBtn, showBtn;
     TextView permissionDescriptionTv, usageTv;
     ListView appsList;
 
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment {@link HomeFragment}.
-     */
-    public static Fragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
-        return fragment;
-    }
-
-    public HomeFragment() {
-        // Required empty public constructor
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        enableBtn = findViewById(R.id.enable_btn);
+        showBtn =  findViewById(R.id.show_btn);
+        permissionDescriptionTv =findViewById(R.id.permission_description_tv);
+        usageTv =  findViewById(R.id.usage_tv);
+        appsList =  findViewById(R.id.apps_list);
+
+        this.loadStatistics();
     }
+
+
+    // each time the application gets in foreground -> getGrantStatus and render the corresponding buttons
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (getGrantStatus()) {
+            showHideWithPermission();
+            showBtn.setOnClickListener(view -> loadStatistics());
+        } else {
+            showHideNoPermission();
+            enableBtn.setOnClickListener(view -> startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)));
+        }
+    }
+
 
     /**
      * load the usage stats for last 24h
      */
     public void loadStatistics() {
-        UsageStatsManager usm = (UsageStatsManager) getActivity().getSystemService(Context.USAGE_STATS_SERVICE);
+        UsageStatsManager usm = (UsageStatsManager) this.getSystemService(USAGE_STATS_SERVICE);
         List<UsageStats> appList = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY,  System.currentTimeMillis() - 1000*3600*24,  System.currentTimeMillis());
         appList = appList.stream().filter(app -> app.getTotalTimeInForeground() > 0).collect(Collectors.toList());
 
@@ -108,6 +83,8 @@ public class HomeFragment extends Fragment {
             showAppsUsage(mySortedMap);
         }
     }
+
+
     public void showAppsUsage(Map<String, UsageStats> mySortedMap) {
         //public void showAppsUsage(List<UsageStats> usageStatsList) {
         ArrayList<App> appsList = new ArrayList<>();
@@ -123,15 +100,15 @@ public class HomeFragment extends Fragment {
         for (UsageStats usageStats : usageStatsList) {
             try {
                 String packageName = usageStats.getPackageName();
-                Drawable icon = getActivity().getDrawable(R.drawable.no_image);
+                Drawable icon = getDrawable(R.drawable.no_image);
                 String[] packageNames = packageName.split("\\.");
                 String appName = packageNames[packageNames.length-1].trim();
 
 
                 if(isAppInfoAvailable(usageStats)){
-                    ApplicationInfo ai = getActivity().getApplicationContext().getPackageManager().getApplicationInfo(packageName, 0);
-                    icon = getActivity().getApplicationContext().getPackageManager().getApplicationIcon(ai);
-                    appName = getActivity().getApplicationContext().getPackageManager().getApplicationLabel(ai).toString();
+                    ApplicationInfo ai = getApplicationContext().getPackageManager().getApplicationInfo(packageName, 0);
+                    icon = getApplicationContext().getPackageManager().getApplicationIcon(ai);
+                    appName = getApplicationContext().getPackageManager().getApplicationLabel(ai).toString();
                 }
 
                 String usageDuration = getDurationBreakdown(usageStats.getTotalTimeInForeground());
@@ -148,10 +125,10 @@ public class HomeFragment extends Fragment {
         // reverse the list to get most usage first
         Collections.reverse(appsList);
         // build the adapter
-        AppsAdapter adapter = new AppsAdapter(getContext(), appsList);
+        AppsAdapter adapter = new AppsAdapter(this, appsList);
 
         // attach the adapter to a ListView
-        ListView listView = getView().findViewById(R.id.apps_list);
+        ListView listView = findViewById(R.id.apps_list);
         listView.setAdapter(adapter);
 
         showHideItemsWhenShowApps();
@@ -162,14 +139,14 @@ public class HomeFragment extends Fragment {
      * @return true if permission granted
      */
     private boolean getGrantStatus() {
-        AppOpsManager appOps = (AppOpsManager) getActivity().getApplicationContext()
+        AppOpsManager appOps = (AppOpsManager) getApplicationContext()
                 .getSystemService(Context.APP_OPS_SERVICE);
 
         int mode = appOps.checkOpNoThrow(OPSTR_GET_USAGE_STATS,
-                android.os.Process.myUid(), getActivity().getApplicationContext().getPackageName());
+                android.os.Process.myUid(), getApplicationContext().getPackageName());
 
         if (mode == AppOpsManager.MODE_DEFAULT) {
-            return (getActivity().getApplicationContext().checkCallingOrSelfPermission(android.Manifest.permission.PACKAGE_USAGE_STATS) == PackageManager.PERMISSION_GRANTED);
+            return (getApplicationContext().checkCallingOrSelfPermission(android.Manifest.permission.PACKAGE_USAGE_STATS) == PackageManager.PERMISSION_GRANTED);
         } else {
             return (mode == MODE_ALLOWED);
         }
@@ -181,7 +158,7 @@ public class HomeFragment extends Fragment {
      */
     private boolean isAppInfoAvailable(UsageStats usageStats) {
         try {
-            getActivity().getApplicationContext().getPackageManager().getApplicationInfo(usageStats.getPackageName(), 0);
+            getApplicationContext().getPackageManager().getApplicationInfo(usageStats.getPackageName(), 0);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
             return false;
@@ -243,32 +220,5 @@ public class HomeFragment extends Fragment {
         usageTv.setVisibility(View.VISIBLE);
         appsList.setVisibility(View.VISIBLE);
 
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
-    }
-
-    @Override
-    public void onViewCreated(View rootView, Bundle savedInstanceState) {
-        super.onViewCreated(rootView, savedInstanceState);
-
-        enableBtn = rootView.findViewById(R.id.enable_btn);
-        showBtn =  rootView.findViewById(R.id.show_btn);
-        permissionDescriptionTv = rootView.findViewById(R.id.permission_description_tv);
-        usageTv =  rootView.findViewById(R.id.usage_tv);
-        appsList =  rootView.findViewById(R.id.apps_list);
-
-        if (getGrantStatus()) {
-            showHideWithPermission();
-            showBtn.setOnClickListener(view -> loadStatistics());
-        } else {
-            showHideNoPermission();
-            enableBtn.setOnClickListener(view -> startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)));
-        }
-
-        loadStatistics();
     }
 }

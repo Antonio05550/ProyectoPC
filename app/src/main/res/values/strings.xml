@@ -14,4 +14,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="permission_description">Para permitir que esta aplicación recopile la información de uso de sus aplicaciones, debe otorgar el permiso desde la aplicación Configuración.\nPuede cancelar este permiso en cualquier momento.</string>
+
 </resources>
