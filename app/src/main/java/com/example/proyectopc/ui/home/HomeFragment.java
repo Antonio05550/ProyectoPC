@@ -10,6 +10,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -38,13 +40,17 @@ import com.example.proyectopc.AppsAdapter;
 import com.example.proyectopc.AppsUsage;
 import com.example.proyectopc.R;
 import com.example.proyectopc.databinding.FragmentHomeBinding;
+import com.example.proyectopc.ui.ClaseApp;
 import com.github.mikephil.charting.charts.BarChart;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -57,18 +63,17 @@ import java.util.stream.Collectors;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
+    long global;
+    private SQLiteDatabase db = SQLiteDatabase.openDatabase("/data/data/com.example.proyectopc/databases/tiempo.db", null, SQLiteDatabase.OPEN_READWRITE);
+    private Cursor cursor;
 
-    RecyclerView recyclerView, recyclerView2;
 
-    // Using ArrayList to store images data
-    ArrayList img = new ArrayList<>(Arrays.asList(R.drawable.icon1, R.drawable.icon2,
-            R.drawable.icon3, R.drawable.icon4));
-    ArrayList nombre = new ArrayList<>(Arrays.asList("TikTok", "Facebook", "Messenger", "WhatsApp"));
-    ArrayList tiempo = new ArrayList<>(Arrays.asList("50 m", "45 m", "30 m", "20 m"));
+    public List<ClaseApp> pkgAppsList = new ArrayList<ClaseApp>();
 
     Button enableBtn, showBtn;
-    TextView permissionDescriptionTv, usageTv;
+    TextView permissionDescriptionTv, usageTv, tiempoG;
     ListView appsList;
+
 
 
     /**
@@ -106,6 +111,7 @@ public class HomeFragment extends Fragment {
                 mySortedMap.put(usageStats.getPackageName(), usageStats);
             }
             showAppsUsage(mySortedMap);
+
         }
     }
     public void showAppsUsage(Map<String, UsageStats> mySortedMap) {
@@ -138,6 +144,13 @@ public class HomeFragment extends Fragment {
                 int usagePercentage = (int) (usageStats.getTotalTimeInForeground() * 100 / totalTime);
 
                 App usageStatDTO = new App(icon, appName, usagePercentage, usageDuration);
+
+                ClaseApp match;
+                match = new ClaseApp();
+                match.pkg = packageName;
+                match.tiempo = usageDuration;
+                pkgAppsList.add(match);
+
                 appsList.add(usageStatDTO);
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
@@ -199,15 +212,16 @@ public class HomeFragment extends Fragment {
         if (millis < 0) {
             throw new IllegalArgumentException("Duration must be greater than zero!");
         }
+        global = global + millis;
 
         long hours = TimeUnit.MILLISECONDS.toHours(millis);
         millis -= TimeUnit.HOURS.toMillis(hours);
         long minutes = TimeUnit.MILLISECONDS.toMinutes(millis);
         millis -= TimeUnit.MINUTES.toMillis(minutes);
         long seconds = TimeUnit.MILLISECONDS.toSeconds(millis);
-
         return (hours + " h " +  minutes + " m " + seconds + " s");
     }
+
 
 
     /**
@@ -260,6 +274,7 @@ public class HomeFragment extends Fragment {
         permissionDescriptionTv = rootView.findViewById(R.id.permission_description_tv);
         usageTv =  rootView.findViewById(R.id.usage_tv);
         appsList =  rootView.findViewById(R.id.apps_list);
+        tiempoG = rootView.findViewById(R.id.global);
 
         if (getGrantStatus()) {
             showHideWithPermission();
@@ -270,5 +285,17 @@ public class HomeFragment extends Fragment {
         }
 
         loadStatistics();
+        long hours = TimeUnit.MILLISECONDS.toHours(global);
+        global -= TimeUnit.HOURS.toMillis(hours);
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(global);
+        global -= TimeUnit.MINUTES.toMillis(minutes);
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(global);
+        tiempoG.setText(hours + " h " +  minutes + " m " + seconds + " s");
+        long ahora = System.currentTimeMillis();
+        Date fecha = new Date(ahora);
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        String salida = df.format(fecha);
+        db.execSQL("INSERT INTO tiempos (fecha, minutos) VALUES ('"+salida+"', '"+((hours*60)+minutes)+"')\n");
+
     }
 }

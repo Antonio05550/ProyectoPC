@@ -12,9 +12,12 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class AppsAdapter extends ArrayAdapter<App> {
+    int tiempoGlobal = 0;
     public AppsAdapter(Context context, ArrayList<App> usageStatDTOArrayList) {
         super(context, 0, usageStatDTOArrayList);
     }
@@ -45,6 +48,8 @@ public class AppsAdapter extends ArrayAdapter<App> {
         usage_perc_tv.setText(usageStats.usagePercentage + "%");
         icon_img.setImageDrawable(usageStats.appIcon);
         progressBar.setProgress(usageStats.usagePercentage);
+
+
 
         // Return the completed view to render on screen
         return convertView;
