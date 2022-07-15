@@ -29,14 +29,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
         DBHelper dbHelper = new DBHelper(MainActivity.this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         if(db != null){
             Toast.makeText(this, "BD CREADA",Toast.LENGTH_LONG).show();
         }
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+
 
         scheduleAlarm(binding.getRoot());
         BottomNavigationView navView = findViewById(R.id.nav_view);
