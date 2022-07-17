@@ -12,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class AppsAdapter extends ArrayAdapter<App> {
@@ -39,7 +37,7 @@ public class AppsAdapter extends ArrayAdapter<App> {
         TextView usage_duration_tv =  convertView.findViewById(R.id.usage_duration_tv);
         TextView usage_perc_tv = convertView.findViewById(R.id.usage_perc_tv);
         ImageView icon_img =  convertView.findViewById(R.id.icon_img);
-        ProgressBar progressBar = convertView.findViewById(R.id.progressBar);
+        ProgressBar progressBar = convertView.findViewById(R.id.progressBar2);
 
 
         // Populate the data into the template view using the data object
