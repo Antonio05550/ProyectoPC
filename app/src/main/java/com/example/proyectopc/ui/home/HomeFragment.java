@@ -23,7 +23,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -68,13 +67,12 @@ public class HomeFragment extends Fragment {
     private SQLiteDatabase db = SQLiteDatabase.openDatabase("/data/data/com.example.proyectopc/databases/tiempo.db", null, SQLiteDatabase.OPEN_READWRITE);
     private Cursor cursor;
 
-    public ArrayList<String> apps = new ArrayList<>();
 
+    public List<ClaseApp> pkgAppsList = new ArrayList<ClaseApp>();
 
     Button enableBtn, showBtn;
     TextView permissionDescriptionTv, usageTv, tiempoG;
     ListView appsList;
-    ProgressBar progressBar;
 
 
 
@@ -147,13 +145,11 @@ public class HomeFragment extends Fragment {
 
                 App usageStatDTO = new App(icon, appName, usagePercentage, usageDuration);
 
-                for (String app : apps) {
-                    //System.out.println(app);
-                    if (app.equals(packageName)) {
-                        global = global + usageStats.getTotalTimeInForeground();
-                    }
-                }
-
+                ClaseApp match;
+                match = new ClaseApp();
+                match.pkg = packageName;
+                match.tiempo = usageDuration;
+                pkgAppsList.add(match);
 
                 appsList.add(usageStatDTO);
             } catch (PackageManager.NameNotFoundException e) {
@@ -216,7 +212,7 @@ public class HomeFragment extends Fragment {
         if (millis < 0) {
             throw new IllegalArgumentException("Duration must be greater than zero!");
         }
-        //global = global + millis;
+        global = global + millis;
 
         long hours = TimeUnit.MILLISECONDS.toHours(millis);
         millis -= TimeUnit.HOURS.toMillis(hours);
@@ -278,24 +274,7 @@ public class HomeFragment extends Fragment {
         permissionDescriptionTv = rootView.findViewById(R.id.permission_description_tv);
         usageTv =  rootView.findViewById(R.id.usage_tv);
         appsList =  rootView.findViewById(R.id.apps_list);
-        tiempoG = rootView.findViewById(R.id.timeG);
-        progressBar = rootView.findViewById(R.id.progressBar2);
-
-        int i;
-        apps.add("com.whatsapp");
-        apps.add("com.android.chrome");
-        apps.add("com.google.android.apps.youtube.music");
-        apps.add("com.google.android.youtube");
-        apps.add("com.zhiliaoapp.musically");
-        apps.add("org.telegram.messenger");
-        apps.add("com.google.android.youtube");
-        apps.add("com.Facebook.katana");
-        apps.add("com.facebook.orca");
-        apps.add("com.supercell.clashofclans");
-        apps.add("com.zhiliaoapp.musically.go");
-        apps.add("com.twitter.android");
-
-
+        tiempoG = rootView.findViewById(R.id.global);
 
         if (getGrantStatus()) {
             showHideWithPermission();
@@ -311,20 +290,12 @@ public class HomeFragment extends Fragment {
         long minutes = TimeUnit.MILLISECONDS.toMinutes(global);
         global -= TimeUnit.MINUTES.toMillis(minutes);
         long seconds = TimeUnit.MILLISECONDS.toSeconds(global);
-        //tiempoG.setText(hours + " h " +  minutes + " m " + seconds + " s");
-        tiempoG.setText(""+((int) ((hours*60)+minutes)));
+        tiempoG.setText(hours + " h " +  minutes + " m " + seconds + " s");
         long ahora = System.currentTimeMillis();
         Date fecha = new Date(ahora);
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         String salida = df.format(fecha);
-
-        Cursor c2 = db.rawQuery("SELECT * FROM tiempos WHERE fecha='"+salida+"'",null);
-        if (c2.moveToNext()) {
-            db.execSQL("UPDATE tiempos SET minutos='"+((hours*60)+minutes)+"' WHERE fecha='"+salida+"'");
-        } else {
-            db.execSQL("INSERT INTO tiempos (fecha, minutos) VALUES ('"+salida+"', '"+((hours*60)+minutes)+"')");
-        }
-        progressBar.setProgress((int) ((hours*60)+minutes));
+        db.execSQL("INSERT INTO tiempos (fecha, minutos) VALUES ('"+salida+"', '"+((hours*60)+minutes)+"')\n");
 
     }
 }

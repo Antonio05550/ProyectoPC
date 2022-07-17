@@ -13,27 +13,107 @@
         android:id="@+id/text_view_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:text="¿Cúal es tu siguiente meta a cumplir?"
         android:gravity="center"
-        android:textSize="40dp"/>
+        android:textSize="20dp"/>
         <TextView
             android:id="@+id/t_tecnicas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Selecciona el tiempo de aplicación a reducir"
+            android:text="Selecciona el reto"
             android:layout_margin="20dp"
             android:gravity="center"
-            android:textSize="10dp"/>
+            android:textSize="15dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="5dp">
 
-        <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-            android:id="@+id/carousel"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="256dp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:id="@+id/l1"
+                android:background="@drawable/border">
+
+                <TextView
+                    android:id="@+id/bmeta1"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="#03A9F4"
+                    android:gravity="center"
+                    android:textColor="#FFF"
+                    android:textSize="20dp">
+                </TextView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:id="@+id/l2"
+                android:background="@drawable/border">
+
+                <TextView
+                    android:id="@+id/bmeta2"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="#03A9F4"
+                    android:gravity="center"
+                    android:textColor="#FFF"
+                    android:textSize="20dp">
+                </TextView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:id="@+id/l3"
+                android:background="@drawable/border">
+
+                <TextView
+                    android:id="@+id/bmeta3"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="#03A9F4"
+                    android:gravity="center"
+                    android:textColor="#FFF"
+                    android:textSize="20dp">
+                </TextView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:id="@+id/l4"
+                android:background="@drawable/border">
+
+                <TextView
+                    android:id="@+id/bmeta4"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="#03A9F4"
+                    android:gravity="center"
+                    android:textColor="#FFF"
+                    android:textSize="20dp"></TextView>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/msugerencia"
