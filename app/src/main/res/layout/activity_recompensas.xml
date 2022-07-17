@@ -14,7 +14,8 @@
             android:id="@+id/text_view_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Premios"
+            android:text="¡LO LOGRASTE!"
+            android:textColor="#03A9F4"
             android:gravity="center"
             android:textSize="40dp"/>
 
@@ -29,30 +30,33 @@
                 android:id="@+id/recompesa"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="¡GANASTE!"
+                android:text="Puntos por minutos de ocio reducidos"
                 android:gravity="center"
                 android:textStyle="bold"
-                android:textSize="50dp"
+                android:textSize="30dp"
                 android:textColor="#fff"
                 android:layout_marginTop="20dp">
 
             </TextView>
 
-            <ImageView
+            <TextView
                 android:id="@+id/recompensaI"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:layout_gravity="center_vertical"
+                android:gravity="center"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/boleto" />
+
+                android:textSize="100dp"
+                android:textColor="#fff"
+                />
             <TextView
                 android:id="@+id/recompesaT"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Por cumplir la meta de tiempo"
                 android:gravity="center"
                 android:textStyle="bold"
-                android:textSize="20dp"
+                android:textSize="10dp"
                 android:textColor="#fff"
                 android:layout_margin="10dp">
 
@@ -64,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
 
-            android:text="Aceptar"
+            android:text="Consigue más puntos"
             />
     </LinearLayout>
 
